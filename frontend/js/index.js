@@ -3,19 +3,28 @@ fetch("http://localhost:3000/api/teddies/")  // appel à l'API du serveur
 {   
     return response.json();  // renvoie une promise qui contient le json
 })
-.then((teddies) => {  // création du contenu web en fonction du tableau json
-    console.log(teddies);
-    let target = document.querySelector("#app"); // récupere balise id app et stocke dans la variable target
+.then((teddies) => {   
     let html =''; // déclaration d'une variable contenant une chaine de caracteres vide à l'exterieur de la boucle en vue de son utilisation à l'exterieur
-    
-    for (let index = 0; index < teddies.length ; index++)
+    console.log(teddies)
+    teddies.forEach(teddy =>
     {
-        let teddy = teddies[index]; // déclaration d'une variable qui stocke l'élément courant du tableau
-        let img = new Image (400 , 300); // déclaration d'une variable pour l'image
-        img.src = teddy.imageUrl ;
-        html += img.outerHTML +'<br>' +teddy.name + '<br>' +teddy.price + '<br>' +teddy.description + '<br>' +teddy.colors + '<br>' ;
-    }
+        html += render(teddy);
+    });
+        
     
-    target.innerHTML = html ; // remplace le contenu de la div par la chaine de caracteres
+    document.querySelector("#app").innerHTML = html ; // remplace le contenu de la div par la chaine de caracteres
 
 });
+
+function render(teddy)
+{
+    return `
+         <div class="teddy-wrapper" style="margin-bottom: 50px ; background-color:f7f7f7 ; border-radius:30px ; padding: 25px;">
+             <img src="${teddy.imageUrl}" style="max-width: 250px">
+             <h2>${teddy.name}</h2>
+             <p>${teddy.description}</p>
+             <strong>${teddy.price / 100}€</strong>
+             <br><a href="produit.html?id=${teddy._id}">Voir le produit</a>
+         </div>
+         `;
+}
