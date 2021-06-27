@@ -1,0 +1,26 @@
+.teddy-wrapper {
+  margin-bottom: 50px;
+  background-color: #d8bfd8;
+  border-radius: 30px;
+  padding: 25px;
+  max-width: 250px;
+}
+.teddy-pic{
+    max-width: 250px;
+}
+.produits{
+    display :flex;
+    flex-direction: row;
+    justify-content:space-between ;
+}
+.teddy-wrapper-product{
+  background-color: #d8bfd8;
+}
+.product-image{
+  
+}
+.container-image{
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+}
