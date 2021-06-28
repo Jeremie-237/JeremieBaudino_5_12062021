@@ -1,7 +1,7 @@
 // window.location.search contient la chaine de caracteres representant tous les parametres de recherche
 const params = new URLSearchParams(window.location.search) // creation d'une constante qui stocke l'objet contenant les parametres de recherche 
 
-let id = params.get('id') // extraie la valeur du parametre de recherche id et stocke dans la variable id 
+let id = params.get('id') // extrait la valeur du parametre de recherche id et stocke dans la variable id 
 
 fetch("http://localhost:3000/api/teddies/" + id)  // appel à l'API du serveur
 .then((response) =>    // => declaration de fonction anonyme
@@ -52,13 +52,13 @@ function render (teddy)
 
 function colorChoice (colors){ // // l'appelant ecrira: colorChoice(teddy.colors) et recevra un chaine de charactere HTML 
     // colorChoice(teddy.colors)
-    // je recupere:
-    //   `<option value="Tan">Tan</option>
+    // on recupere:
+    //   <option value="Tan">Tan</option>
     //   <option value="Chocolate">Chocolate</option>
     //   <option value="Black">Black</option>
     //   <option value="White">White</option>`
-    //colors est un tableau de couleur de l'ours (courant)
-        // creer la variable (result) qu'on renverra a celui qui appelle la fonction
+    // colors est un tableau de couleur de l'ours (courant)
+    // creer la variable (result) qu'on renverra a celui qui appelle la fonction
          
     let result ; 
     colors.forEach(element => {
