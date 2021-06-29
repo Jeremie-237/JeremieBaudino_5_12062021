@@ -1,19 +1,10 @@
-fetch("http://localhost:3000/api/teddies/")  // appel à l'API du serveur
-.then((response) =>    // => then execute une fonction quand la promesse initiale se termine , declaration de fonction anonyme
-{   
-    return response.json();  // renvoie une promise qui contient le json
-})
-.then((teddies) => {   
-    let html =''; // déclaration d'une variable contenant une chaine de caracteres vide à l'exterieur de la boucle en vue de son utilisation à l'exterieur
-    console.log(teddies)
-    teddies.forEach(teddy =>  // boucle pour le array teddies
-    {
-        html += render(teddy);
-    });
-        
-    
-    document.querySelector("#app").innerHTML = html ; // remplace le contenu de la div par la chaine de caracteres
+showQtyOfProductsInCart();
 
+fetch("http://localhost:3000/api/teddies/")  // appel à l'API du serveur
+.then((response) =>  response.json())   // => then execute une fonction quand la promesse initiale se termine // declaration de fonction anonyme  // renvoie une promise qui contient le json
+
+.then((teddies) => {   
+    display(teddies);
 });
 
 function render(teddy)
@@ -30,4 +21,15 @@ function render(teddy)
          </div>
     </div>
          `;
+}
+function display(teddies)
+{
+    let html =''; // déclaration d'une variable contenant une chaine de caracteres vide à l'exterieur de la boucle en vue de son utilisation à l'exterieur
+    
+    teddies.forEach(teddy =>  // boucle pour le array teddies
+    {
+        html += render(teddy);
+    });
+    document.querySelector("#app").innerHTML = html ; // remplace le contenu de la div par la chaine de caracteres
+
 }

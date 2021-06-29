@@ -1,3 +1,9 @@
+.logo {
+  height: 8rem;
+}
+.panier{
+  text-decoration: none;
+}
 .teddy-wrapper {
   margin-bottom: 50px;
   background-color: #d8bfd8;
@@ -13,14 +19,22 @@
     flex-direction: row;
     justify-content:space-between ;
 }
-.teddy-wrapper-product{
-  background-color: #d8bfd8;
-}
 .product-image{
-  
+  width:50%;
 }
 .container-image{
-  max-width: 100%;
+  max-width: 50%;
   display: flex;
   justify-content: center;
+}
+
+header{
+  display : flex ; 
+  justify-content: space-between;
+}
+nav{
+  display : flex ; 
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: 2vw;
 }

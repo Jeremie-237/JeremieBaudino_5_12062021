@@ -3,11 +3,10 @@ const params = new URLSearchParams(window.location.search) // creation d'une con
 
 let id = params.get('id') // extrait la valeur du parametre de recherche id et stocke dans la variable id 
 
+showQtyOfProductsInCart();
 fetch("http://localhost:3000/api/teddies/" + id)  // appel à l'API du serveur
-.then((response) =>    // => declaration de fonction anonyme
-{   
-    return response.json();  // renvoie une promise qui contient le json
-})
+.then((response) => response.json())    // => declaration de fonction anonyme // renvoie une promise qui contient le json
+
 .then((teddy) => {  // création du contenu web en fonction du tableau json
     
     document.querySelector("#product").innerHTML = render (teddy) 
@@ -20,33 +19,28 @@ fetch("http://localhost:3000/api/teddies/" + id)  // appel à l'API du serveur
     document.getElementById("addButton").addEventListener('click' , addToCart);
 });
 function addToCart(){
-    console.log("addToCart!");
-    // 1.recuperer la valeur existante de la liste des id produits depuis le local storage
-    let idProduits = JSON.parse(localStorage.getItem('panier')); //panier est le nom de la clé à laquelle on associe la liste des id , json.parse lit une chaine de caracteres et la transforme en objet
-    // 2.ajouter la valeur selectionnée à la liste existante
-    if(idProduits === undefined || idProduits == null){ // verifie que la liste idProduits existe deja
-        idProduits = []; 
-        idProduits.push(id);
+    let produitIds = []; 
+
+    if(doesExists("panier"))
+    {
+        produitIds = get("panier"); 
     }
-    else{
-        idProduits.push(id);
-    }
-    // 3. enregistrer la nouvelle liste (ancienne valeur + nouvelle valeur)
-    localStorage.setItem("panier", JSON.stringify(idProduits)); //json.stringify transforme un objet en chaine de caracteres au format json
+    produitIds.push(id);
+    store("panier", produitIds);
 }  
 function render (teddy)
-{ console.log(teddy);
+{ 
     return `
     <div class="teddy-wrapper-product">
              <div class="container-image">
-             <img class="product-image" src="${teddy.imageUrl}">
+                 <img class="product-image" src="${teddy.imageUrl}">
              </div>
              <h2>${teddy.name}</h2>
              <p>${teddy.description}</p>
              <label>Choisir une couleur</label>
                 <select name="colors">${colorChoice(teddy.colors)}</select>
              <strong>${teddy.price / 100}€</strong>
-             <br><a href="produit.html?id=${teddy._id}" id="addButton">Ajouter le produit au panier</a>
+             <br><button id="addButton">Ajouter le produit au panier</button>
          </div>`;
 }
 

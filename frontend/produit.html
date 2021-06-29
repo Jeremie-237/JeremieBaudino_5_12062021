@@ -12,8 +12,13 @@
 
 <body>
      <header>
-          <nav></nav>
-          <div class= "header logo"></div>
+          <div class= "header logo">
+           <img class = "logo" src="../backend/images/logo_orinoco.png" alt="logo">
+          </div>
+          <nav>
+                <a class = "panier" href="panier.html">Voir mon panier</a>
+                <span id="panier-qty"></span>
+          </nav>
      </header>
 
      <section id="product">
@@ -22,6 +27,8 @@
      
 </body>
 
+<script type="text/javascript" src="js/storage.js"></script>
+<script type="text/javascript" src="js/utils.js"></script>
 <script type="text/javascript" src="js/produit.js"></script>
 
 </html>
