@@ -10,16 +10,15 @@ fetch("http://localhost:3000/api/teddies/")  // appel à l'API du serveur
 function render(teddy)
 {
     return `
-
-    <div class="container" >
          <div class="teddy-wrapper" >
              <img class="teddy-pic" src="${teddy.imageUrl}">
              <h2>${teddy.name}</h2>
              <p>${teddy.description}</p>
-             <strong>${teddy.price / 100}€</strong>
-             <br><a href="produit.html?id=${teddy._id}">Voir le produit</a>
+             <span class="price">${teddy.price / 100}€</span>
+             <button class="product-button">
+                 <a class="product-link" href="produit.html?id=${teddy._id}">Voir le produit</a>
+             </button>
          </div>
-    </div>
          `;
 }
 function display(teddies)

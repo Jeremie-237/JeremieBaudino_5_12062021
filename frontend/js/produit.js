@@ -31,17 +31,17 @@ function addToCart(){
 function render (teddy)
 { 
     return `
-    <div class="teddy-wrapper-product">
-             <div class="container-image">
-                 <img class="product-image" src="${teddy.imageUrl}">
-             </div>
-             <h2>${teddy.name}</h2>
-             <p>${teddy.description}</p>
-             <label>Choisir une couleur</label>
-                <select name="colors">${colorChoice(teddy.colors)}</select>
-             <strong>${teddy.price / 100}€</strong>
-             <br><button id="addButton">Ajouter le produit au panier</button>
-         </div>`;
+    <div class="teddy-wrapper">
+        <img class="teddy-pic" src="${teddy.imageUrl}">
+        <h2>${teddy.name}</h2>
+        <p>${teddy.description}</p>
+        <div class="color-choice">
+            <label>Choisir une couleur</label>
+            <select name="colors">${colorChoice(teddy.colors)}</select>
+        </div>
+        <span class="price">${teddy.price / 100}€</span>
+        <button id="addButton" class="product-button">Ajouter le produit au panier</button>
+    </div>`;
 }
 
 function colorChoice (colors){ // // l'appelant ecrira: colorChoice(teddy.colors) et recevra un chaine de charactere HTML 
