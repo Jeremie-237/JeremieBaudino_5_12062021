@@ -59,3 +59,24 @@ nav{
   margin-right: 2vw;
   font-weight: 600;
 }
+.contenu-panier ,.label{
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.formulaire{
+  display:flex;
+  flex-direction: column;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.info-field{
+  margin-top: 1rem;
+}
+.input{
+  line-height: 1.25rem;
+  border-radius: 0.3rem;
+}
+.submit-order{
+  height:1.5rem;
+  border-radius: 1rem;
+  margin-top: 1rem;
+}

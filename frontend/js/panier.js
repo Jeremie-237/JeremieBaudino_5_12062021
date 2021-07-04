@@ -15,5 +15,16 @@ function display(items) {
   items.forEach((element) => {
     cartItemsHtml += render(element);
   });
-  document.querySelector("#panier").innerHTML = `<p>Contenu du panier</p>` + cartItemsHtml;
+  document.querySelector("#panier").innerHTML = `<p class = "contenu-panier">Contenu du panier</p>` + cartItemsHtml;
 }
+
+function order(){
+    let myForm = document.forms["information-client"]; // creation d'une variable pour stocker le formulaire
+    let nom = myForm["lastname"].value;
+    let prenom = myForm["firstname"].value;
+    let mail = myForm["mail"].value;
+    let adresse = myForm["adresse"].value;
+    let codePostal = myForm["code postal"].value;
+    let ville = myForm["ville"].value;
+    console.log(`${nom} ${prenom} ${mail} ${adresse} ${codePostal} ${ville} ${panier}`)
+}   
