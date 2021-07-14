@@ -1,8 +1,26 @@
 //recupérer la liste du local storage
 // get("panier"); // appel de la fonction ,  renvoit une valeur à utiliser plus tard dans une variable
 let panier = get("panier");
-console.log(panier);
-//afficher la liste des id dans la section panier ( panier étant un tableau de chaine de caracteres )
+let nom = document.getElementById("lastname");
+let isFormValid = false;
+let myForm = document.getElementById("information-client");
+nom.addEventListener("keydown" , function()
+{
+  if (nom.value.length < 2)
+  {
+    document.getElementById("lastname-error").innerHTML = "Le nom n'est pas valide."
+    isFormValid = false
+  }else
+  {
+    document.getElementById("lastname-error").innerHTML = ""
+  }
+})
+
+myForm.addEventListener("submit" , function(event)
+{
+  event.preventDefault();
+})
+
 display(panier);
 
 function render(element) {
@@ -19,8 +37,8 @@ function display(items) {
 }
 
 function order(){
-    let myForm = document.forms["information-client"]; // creation d'une variable pour stocker le formulaire
-    let nom = myForm["lastname"].value;
+    
+    
     let prenom = myForm["firstname"].value;
     let mail = myForm["mail"].value;
     let adresse = myForm["adresse"].value;

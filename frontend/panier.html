@@ -25,11 +25,12 @@
         
     </section>
     
-    <form id="information-client" onsubmit="order(); return false;">
+    <form id="information-client">
         <div class = "formulaire">
             <div class ="info-field">
                 <label for="lastname" class="label">Nom</label>
                 <input type="text" name="lastname" id="lastname" class="input" required="">
+                <p style="color: red" id="lastname-error"></p>
             </div>
             <div class ="info-field" >
                 <label for="firstname" class="label">Prenom</label>
