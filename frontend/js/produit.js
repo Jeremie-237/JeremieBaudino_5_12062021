@@ -9,7 +9,7 @@ fetch("http://localhost:3000/api/teddies/" + id)  // appel à l'API du serveur
 
 .then((teddy) => {  // création du contenu web en fonction du tableau json
     
-    document.querySelector("#product").innerHTML = render (teddy) 
+    document.querySelector("#product").innerHTML = render(teddy) 
     // document.getElementById("addButton").addEventListener('click' , function() // écoute de l'évenement (click)
     // {
     //     products = [];  // création d'une variable temporaire sous forme de tableau vide
@@ -40,7 +40,7 @@ function render (teddy)
             <select name="colors">${colorChoice(teddy.colors)}</select>
         </div>
         <span class="price">${teddy.price / 100}€</span>
-        <button id="addButton" class="product-button">Ajouter le produit au panier</button>
+        <button id="addButton" class="product-button" onClick="window.location.reload()">Ajouter le produit au panier</button>
     </div>`;
 }
 
