@@ -96,7 +96,7 @@ function render(teddy) {
   document.getElementById("body").appendChild(button);
   return `<div><img class="teddy-minipic" src="${teddy.imageUrl}"> ${
     teddy.name
-  } <span>${teddy.price / 100}€</span>
+  }${teddy.price / 100}
     `;
 }
 
@@ -138,7 +138,7 @@ function order() {
       address: adresse.value,
       city: ville.value,
     },
-    products: panier,
+    products: panier.map(teddy => teddy._id),
   };
   fetch("http://localhost:3000/api/teddies/order", {
     // appel au serveur pour créer la commande
