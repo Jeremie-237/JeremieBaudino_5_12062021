@@ -18,8 +18,7 @@ nom.addEventListener("keyup", function () {
   }
 });
 
-function isLastNameValid()
-{
+function isLastNameValid() {
   if (nom.value.length < 2) {
     return false;
   }
@@ -33,8 +32,7 @@ prenom.addEventListener("keyup", function () {
   }
 });
 
-function isFirstNameValid()
-{
+function isFirstNameValid() {
   if (prenom.value.length < 3) {
     return false;
   }
@@ -43,12 +41,14 @@ function isFirstNameValid()
 email.addEventListener("keyup", function () {
   document.getElementById("mail-error").innerHTML = "";
   if (!isEmailValid()) {
-    document.getElementById("mail-error").innerHTML = "L'adresse mail n'est pas valide.";
+    document.getElementById("mail-error").innerHTML =
+      "L'adresse mail n'est pas valide.";
   }
 });
 
 function isEmailValid() {
-  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const re =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email.value).toLowerCase());
 }
 
@@ -56,7 +56,7 @@ adresse.addEventListener("keyup", function () {
   if (adresse.value.length < 1) {
     document.getElementById("adresse-error").innerHTML =
       "L'adresse n'est pas valide.";
-   } else {
+  } else {
     document.getElementById("adresse-error").innerHTML = "";
   }
 });
@@ -76,47 +76,70 @@ ville.addEventListener("keyup", function () {
     document.getElementById("ville-error").innerHTML = "";
   }
 });
-myForm.addEventListener("input" , function (event)
-{
+myForm.addEventListener("input", function (event) {
   disableButton();
-  if (isLastNameValid() && isFirstNameValid() && isEmailValid())
-  {
-    enableButton()
-  } 
-  })
+  if (isLastNameValid() && isFirstNameValid() && isEmailValid()) {
+    enableButton();
+  }
+});
 myForm.addEventListener("submit", function (event) {
   event.preventDefault();
   order();
 });
-disableButton()
+disableButton();
 display(panier);
 
-function render(element) {
-  return `render${element}<br>
+function render(teddy) {
+  let button = document.createElement("BUTTON");
+  button.innerHTML = "delete";
+  button.addEventListener("click", () => deleteItem(element));
+  document.getElementById("body").appendChild(button);
+  return `<div><img class="teddy-minipic" src="${teddy.imageUrl}"> ${
+    teddy.name
+  } <span>${teddy.price / 100}€</span>
     `;
 }
 
-function display(items) {
-  let html = ""; // déclaration d'une variable contenant une chaine de caracteres vide à l'exterieur de la boucle en vue de son utilisation à l'exterieur
-  items.forEach((element) => {
-    html += render(element);
-  });
-  document.querySelector("#panier").innerHTML =
-    `<p class = "contenu-panier">Contenu du panier</p>` + html;
+function deleteItem(element) {
+  let panier = get("panier"); // récupere le panier par la fonction get et stocke dans une variable panier
+
+  let index = -1;
+  for (let i = 0; i < panier.length; i++) {
+    if (panier[i].name == element.name) {
+      index = i;
+      break;
+    }
+  }
+  panier.splice(index, 1); // supprime l'élément du tableau
+  store("panier", panier); // remet le contenu du panier dans son espace de stockage
+  window.location.reload();
 }
 
+function display(items) {
+  let balisePanier = document.querySelector("#panier"); // recuperation de la section panier du html
+  balisePanier.innerHTML = `<p class = "contenu-panier">Contenu du panier</p>`; // ajout de html dans le corps de cette balise
+
+  items.forEach((teddy) => { // boucle for sur le tableau teddy (qui correspond au panier)
+    let baliseArticle = document.createElement("DIV");// creation d'une div pour l'article 
+    baliseArticle.innerHTML = `<img class="teddy-minipic" src="${teddy.imageUrl}"> ${teddy.name} ${teddy.price / 100}`; // ajout de html avec les valeurs du teddy
+    let button = document.createElement("BUTTON");// creation d'une balise button
+    button.innerHTML = "Supprimer";
+    button.addEventListener("click", () => deleteItem(teddy)); // ajout d'un ecouteur sur le bouton pour appeller la fonction deleteitem pour le teddy selectionné
+    baliseArticle.appendChild(button);// ajoute l'element bouton à la balise article
+    balisePanier.appendChild(baliseArticle);// ajoute la balise article à la balise panier
+  });
+}
 function order() {
-  
   let payload = {
-     contact: {
-       lastName: nom.value,
-       firstName: prenom.value,
-       email: mail.value,
-       address: adresse.value,
-       city: ville.value,
-     },
-     products: panier
-  }
+    contact: {
+      lastName: nom.value,
+      firstName: prenom.value,
+      email: mail.value,
+      address: adresse.value,
+      city: ville.value,
+    },
+    products: panier,
+  };
   fetch("http://localhost:3000/api/teddies/order", {
     // appel au serveur pour créer la commande
     method: "POST", // utilisation de la methode post pour creer des donnees sur le serveur
@@ -135,7 +158,7 @@ function order() {
 
 function disableButton() {
   let button = document.getElementById("submitButton");
-  button.setAttribute("disabled" , true)
+  button.setAttribute("disabled", true);
   button.style.opacity = 0.5;
 }
 function enableButton() {

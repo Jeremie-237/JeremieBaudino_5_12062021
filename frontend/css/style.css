@@ -19,6 +19,11 @@
   max-width:100%;
   object-fit:cover;
 }
+.teddy-minipic{
+  height:40px;
+  width:40px;
+  object-fit:cover;
+}
 .produits{
     display :flex;
     flex-direction: row;

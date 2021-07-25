@@ -16,17 +16,17 @@ fetch("http://localhost:3000/api/teddies/" + id)  // appel à l'API du serveur
     //     products.push(id);  // ajout de l'id du produit
     //     localStorage.setItem('products' , products)  //enregistrement dans le localStorage de la valeur de la variable products associee a la 'key' (clef) "products" (chaine de characteres)
     // })
-    document.getElementById("addButton").addEventListener('click' , addToCart);
+    document.getElementById("addButton").addEventListener('click' , () => addToCart(teddy));
 });
-function addToCart(){
-    let produitIds = []; 
+function addToCart(teddy){
+    let teddies = []; 
 
     if(doesExists("panier"))
     {
-        produitIds = get("panier"); 
+        teddies = get("panier"); 
     }
-    produitIds.push(id);
-    store("panier", produitIds);
+    teddies.push(teddy);
+    store("panier", teddies);
 }  
 function render (teddy)
 { 
