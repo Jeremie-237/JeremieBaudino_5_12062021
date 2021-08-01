@@ -7,6 +7,18 @@ fetch("http://localhost:3000/api/teddies/")  // appel à l'API du serveur
     display(teddies);
 });
 
+function display(teddies)
+{
+    let html =''; // déclaration d'une variable contenant une chaine de caracteres vide à l'exterieur de la boucle en vue de son utilisation à l'exterieur
+    
+    teddies.forEach(teddy =>  // boucle pour le array teddies
+    {
+        html += render(teddy);
+    });
+    document.querySelector("#app").innerHTML = html ; // remplace le contenu de la div par la chaine de caracteres
+
+}
+
 function render(teddy)
 {
     return `
@@ -21,14 +33,5 @@ function render(teddy)
          </div>
          `;
 }
-function display(teddies)
-{
-    let html =''; // déclaration d'une variable contenant une chaine de caracteres vide à l'exterieur de la boucle en vue de son utilisation à l'exterieur
-    
-    teddies.forEach(teddy =>  // boucle pour le array teddies
-    {
-        html += render(teddy);
-    });
-    document.querySelector("#app").innerHTML = html ; // remplace le contenu de la div par la chaine de caracteres
 
-}
+

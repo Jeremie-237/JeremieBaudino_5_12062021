@@ -2,9 +2,9 @@ function showQtyOfProductsInCart ()
 {
     let qty = 0;
 
-    if (doesExists('panier'))
+    if (storage.doesExists('panier'))
     {
-        qty = get('panier').length;
+        qty = storage.get('panier').length;
     }
 
     document.getElementById('panier-qty').innerHTML = "Article(s) dans mon panier :" + qty;

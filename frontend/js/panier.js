@@ -1,6 +1,7 @@
 //recupérer la liste du local storage
 // get("panier"); // appel de la fonction ,  renvoit une valeur à utiliser plus tard dans une variable
-let panier = get("panier");
+
+let panier = storage.get("panier");
 let nom = document.getElementById("lastname");
 let prenom = document.getElementById("firstname");
 let email = document.getElementById("mail");
@@ -8,6 +9,8 @@ let adresse = document.getElementById("adresse");
 let codepostal = document.getElementById("code postal");
 let ville = document.getElementById("ville");
 let myForm = document.getElementById("information-client");
+
+
 
 nom.addEventListener("keyup", function () {
   document.getElementById("lastname-error").innerHTML = "";
@@ -18,12 +21,6 @@ nom.addEventListener("keyup", function () {
   }
 });
 
-function isLastNameValid() {
-  if (nom.value.length < 2) {
-    return false;
-  }
-  return true;
-}
 prenom.addEventListener("keyup", function () {
   document.getElementById("firstname-error").innerHTML = "";
   if (!isFirstNameValid()) {
@@ -32,12 +29,6 @@ prenom.addEventListener("keyup", function () {
   }
 });
 
-function isFirstNameValid() {
-  if (prenom.value.length < 3) {
-    return false;
-  }
-  return true;
-}
 email.addEventListener("keyup", function () {
   document.getElementById("mail-error").innerHTML = "";
   if (!isEmailValid()) {
@@ -45,12 +36,6 @@ email.addEventListener("keyup", function () {
       "L'adresse mail n'est pas valide.";
   }
 });
-
-function isEmailValid() {
-  const re =
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(String(email.value).toLowerCase());
-}
 
 adresse.addEventListener("keyup", function () {
   if (adresse.value.length < 1) {
@@ -60,6 +45,7 @@ adresse.addEventListener("keyup", function () {
     document.getElementById("adresse-error").innerHTML = "";
   }
 });
+
 codepostal.addEventListener("keyup", function () {
   if (isNaN(codepostal.value) || codepostal.value.toString().length != 5) {
     document.getElementById("codepostal-error").innerHTML =
@@ -68,6 +54,7 @@ codepostal.addEventListener("keyup", function () {
     document.getElementById("codepostal-error").innerHTML = "";
   }
 });
+
 ville.addEventListener("keyup", function () {
   if (ville.value.length < 2) {
     document.getElementById("ville-error").innerHTML =
@@ -76,6 +63,7 @@ ville.addEventListener("keyup", function () {
     document.getElementById("ville-error").innerHTML = "";
   }
 });
+
 myForm.addEventListener("input", function (event) {
   disableButton();
   if (isLastNameValid() && isFirstNameValid() && isEmailValid()) {
@@ -101,7 +89,7 @@ function render(teddy) {
 }
 
 function deleteItem(element) {
-  let panier = get("panier"); // récupere le panier par la fonction get et stocke dans une variable panier
+  let panier = storage.get("panier"); // récupere le panier par la fonction get et stocke dans une variable panier
 
   let index = -1;
   for (let i = 0; i < panier.length; i++) {
@@ -111,7 +99,7 @@ function deleteItem(element) {
     }
   }
   panier.splice(index, 1); // supprime l'élément du tableau
-  store("panier", panier); // remet le contenu du panier dans son espace de stockage
+  storage.store("panier", panier); // remet le contenu du panier dans son espace de stockage
   window.location.reload();
 }
 
@@ -165,4 +153,24 @@ function enableButton() {
   let button = document.getElementById("submitButton");
   button.removeAttribute("disabled");
   button.style.opacity = 1;
+}
+
+function isLastNameValid() {
+  if (nom.value.length < 2) {
+    return false;
+  }
+  return true;
+}
+
+function isFirstNameValid() {
+  if (prenom.value.length < 3) {
+    return false;
+  }
+  return true;
+}
+
+function isEmailValid() {
+  const re =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email.value).toLowerCase());
 }

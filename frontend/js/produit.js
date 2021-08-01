@@ -1,6 +1,5 @@
 // window.location.search contient la chaine de caracteres representant tous les parametres de recherche
 const params = new URLSearchParams(window.location.search) // creation d'une constante qui stocke l'objet contenant les parametres de recherche 
-
 let id = params.get('id') // extrait la valeur du parametre de recherche id et stocke dans la variable id 
 
 showQtyOfProductsInCart();
@@ -18,31 +17,17 @@ fetch("http://localhost:3000/api/teddies/" + id)  // appel à l'API du serveur
     // })
     document.getElementById("addButton").addEventListener('click' , () => addToCart(teddy));
 });
+
 function addToCart(teddy){
     let teddies = []; 
 
-    if(doesExists("panier"))
+    if(storage.doesExists("panier"))
     {
-        teddies = get("panier"); 
+        teddies = storage.get("panier"); 
     }
     teddies.push(teddy);
-    store("panier", teddies);
-}  
-function render (teddy)
-{ 
-    return `
-    <div class="teddy-wrapper">
-        <img class="teddy-pic" src="${teddy.imageUrl}">
-        <h2>${teddy.name}</h2>
-        <p>${teddy.description}</p>
-        <div class="color-choice">
-            <label>Choisir une couleur</label>
-            <select name="colors">${colorChoice(teddy.colors)}</select>
-        </div>
-        <span class="price">${teddy.price / 100}€</span>
-        <button id="addButton" class="product-button" onClick="window.location.reload()">Ajouter le produit au panier</button>
-    </div>`;
-}
+    storage.store("panier", teddies);
+} 
 
 function colorChoice (colors){ // // l'appelant ecrira: colorChoice(teddy.colors) et recevra un chaine de charactere HTML 
     // colorChoice(teddy.colors)
@@ -60,3 +45,21 @@ function colorChoice (colors){ // // l'appelant ecrira: colorChoice(teddy.colors
     });
     return result;
 }
+
+function render (teddy)
+{ 
+    return `
+    <div class="teddy-wrapper">
+        <img class="teddy-pic" src="${teddy.imageUrl}">
+        <h2>${teddy.name}</h2>
+        <p>${teddy.description}</p>
+        <div class="color-choice">
+            <label>Choisir une couleur</label>
+            <select name="colors">${colorChoice(teddy.colors)}</select>
+        </div>
+        <span class="price">${teddy.price / 100}€</span>
+        <button id="addButton" class="product-button" onClick="window.location.reload()">Ajouter le produit au panier</button>
+    </div>`;
+}
+
+
